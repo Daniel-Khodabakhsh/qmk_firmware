@@ -27,10 +27,10 @@ enum layers {
 #define MO_FUNC MO(LAYER_FUNC)
 
 enum macros {
-	MACRO_LOCK_OS
+	MACRO_OS_LOCK
 };
 
-#define M_OSLCK M(0)
+#define M_OSLCK M(MACRO_OS_LOCK)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Main layer
@@ -41,9 +41,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ├────────┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴────────┤
 │  CAPSL   │  A  │  S  │  D  │  F  │  G  │  H  │  J  │  K  │  L  │  ;  │  '  │   ENTER    │
 ├──────────┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴────────────┤
-│   LSHFT    │  Z  │  X  │  C  │  V  │  B  │  N  │  M  │  ,  │  .  │  /  │     RSHFT      │
+│   LSHFT    │  Z  │  X  │  C  │  V  │  B  │  N  │  M  │  ,  │  .  │  /  │       FN       │
 ├──────┬─────┴┬────┴─┬───┴─────┴─────┴─────┴─────┴─────┴─────┴┬────┴─┬───┴──┬──────┬──────┤
-│LCTRL │L_GUI │L_ALT │               SPC                      │R_ALT │ FN0  │ APP  │RCTRL │
+│LCTRL │L_GUI │L_ALT │               SPC                      │ APP  │  FN  │  FN  │  FN  │
 └──────┴──────┴──────┴────────────────────────────────────────┴──────┴──────┴──────┴──────┘*/
 	[LAYER_MAIN] = KEYMAP(
 KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  XXXXXXX, KC_BSPC,\
@@ -58,7 +58,7 @@ KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                   
 ├─────┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬────────┤
 │        │HOME │ UP  │ END │PGUP │     │     │     │ INS │     │PRTSC│SCLCK│PAUSE│        │
 ├────────┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴────────┤
-│          │LEFT │DOWN │RIGHT│PGDN │     │     │     │     │LockO│     │     │            │
+│          │LEFT │DOWN │RIGHT│PGDN │     │     │     │     │OSLck│     │     │            │
 ├──────────┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴────────────┤
 │            │     │     │     │     │     │     │Mute │VolDn│VolUp│     │                │
 ├──────┬─────┴┬────┴─┬───┴─────┴─────┴─────┴─────┴─────┴─────┴┬────┴─┬───┴──┬──────┬──────┤
@@ -72,37 +72,25 @@ _______, XXXXXXX, _______, _______, _______, _______, _______, _______, KC_MUTE,
 _______, _______, _______,                            _______,                            _______, _______, _______, _______)
 };
 
-/*
-* Fn action definition
-*/
-/*const uint16_t PROGMEM fn_actions[] = {
-};*/
+//const uint16_t PROGMEM fn_actions[] = {};
 
-/*void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
-}*/
+//void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {}
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	if (record->event.pressed) {
 		switch(id) {
-			case 0:
-				return MACRO(D(LSFT), T(H), U(LSFT), T(I), D(LSFT), T(1), U(LSFT), END);
-				//return MACRO(D(LGUI), T(L), U(LGUI), END);
+			case MACRO_OS_LOCK:
+				return MACRO(D(LGUI), T(L), U(LGUI), END);
 		}
 	}
 	
 	return MACRO_NONE;
 };
 
-/*
-void matrix_init_user(void) {
-}
+//void matrix_init_user(void) {}
 
-void matrix_scan_user(void) {
-}
+//void matrix_scan_user(void) {}
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-}
+//bool process_record_user(uint16_t keycode, keyrecord_t *record) {}
 
-void led_set_user(uint8_t usb_led) {
-}
-*/
+//void led_set_user(uint8_t usb_led) {}
