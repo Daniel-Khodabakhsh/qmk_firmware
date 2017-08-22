@@ -27,10 +27,10 @@ enum layers {
 #define MO_FUNC MO(LAYER_FUNC)
 
 enum macros {
-	MACRO_LOCK_OS
+	MACRO_OS_LOCK
 };
 
-#define M_OSLCK M(0)
+#define M_OSLCK M(MACRO_OS_LOCK)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Main layer
@@ -74,15 +74,15 @@ _______, _______, _______,                   _______,                           
 
 //const uint16_t PROGMEM fn_actions[] = {};
 
+// MACRODOWN only works in this function
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
 	if (record->event.pressed) {
 		switch(id) {
-			case 0:
-				return MACRO(D(LSFT), T(H), U(LSFT), T(I), D(LSFT), T(1), U(LSFT), END);
-				//return MACRO(D(LGUI), T(L), U(LGUI), END);
+			case MACRO_OS_LOCK:
+				return MACRO(D(LGUI), T(L), U(LGUI), END);
 		}
 	}
-	// MACRODOWN only works in this function
+
 	return MACRO_NONE;
 };
